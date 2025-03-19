@@ -1,6 +1,6 @@
 # GitHub Action for Eleventy
 
-Use this action to build your static website with [Eleventy](https://www.11ty.io/).
+Use this action to build your static website with [Eleventy](https://www.11ty.dev/).
 
 To use it, create a `.github/workflows/eleventy_build.yml` file which [uses this repository](https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobsjob_idsteps) as an action.
 
@@ -12,17 +12,17 @@ on: [push]
 
 jobs:
   build_deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Build
-        uses: TartanLlama/actions-eleventy@v1.1
+        uses: richardherbert/actions-eleventy@master
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v1.1.0
-        env:
-          PUBLISH_DIR: _site 
-          PUBLISH_BRANCH: gh-pages
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: _site
+          publish_branch: gh-pages
+          github_token: ${{ secrets.DEPLOY_TOKEN }}
 ```
 
 This action accepts a couple of optional inputs:
@@ -36,8 +36,8 @@ For example:
 
 ```yaml
 - name: Build
-  uses: TartanLlama/actions-eleventy@v1.1
+  uses: richardherbert/actions-eleventy@v1.3
   with:
-    args: --output _dist
+    args: '--output=_dist'
     install_dependencies: true
 ```
